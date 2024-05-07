@@ -1,9 +1,9 @@
 from datetime import datetime, timezone, timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
-from dailydo_todo_app import db
-from dailydo_todo_app.auth import get_current_user, get_user_from_db, hash_password
-from dailydo_todo_app.db import get_session
-from dailydo_todo_app.db import User
+from multi_tenant_fastapi_todo import db
+from multi_tenant_fastapi_todo.auth import get_current_user, get_user_from_db, hash_password
+from multi_tenant_fastapi_todo.db import get_session
+from multi_tenant_fastapi_todo.db import User
 from typing import Annotated
 from sqlmodel import Session, select
 from passlib.context import CryptContext

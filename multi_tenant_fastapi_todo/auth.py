@@ -1,6 +1,6 @@
 from datetime import datetime, timezone, timedelta
 from fastapi import Depends, HTTPException, status
-from dailydo_todo_app.db import get_session, User
+from multi_tenant_fastapi_todo.db import get_session, User
 from typing import Annotated
 from sqlmodel import Session, select
 from passlib.context import CryptContext

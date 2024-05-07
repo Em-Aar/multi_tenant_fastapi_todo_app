@@ -1,5 +1,5 @@
 from sqlmodel import SQLModel, Field, create_engine, Session, select
-from dailydo_todo_app import setting
+from multi_tenant_fastapi_todo import setting
 
 
 # create model for user table

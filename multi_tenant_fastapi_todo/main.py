@@ -4,9 +4,9 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlmodel import SQLModel, Session, select
 from typing import Annotated
 from contextlib import asynccontextmanager
-from dailydo_todo_app.auth import ACCESS_TOKE_EXPIRE_MINUTE, Token, authenticate_user, create_access_token, get_current_user
-from dailydo_todo_app.db import User, engine, Todo, get_session
-from dailydo_todo_app.router import user
+from multi_tenant_fastapi_todo.auth import ACCESS_TOKE_EXPIRE_MINUTE, Token, authenticate_user, create_access_token, get_current_user
+from multi_tenant_fastapi_todo.db import User, engine, Todo, get_session
+from multi_tenant_fastapi_todo.router import user
 
 
 def create_tables():
