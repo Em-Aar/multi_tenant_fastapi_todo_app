@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "dailydo-todo-app"
+name = "multi_tenant_fastapi_todo"
 version = "0.1.0"
 description = ""
 authors = ["Em-Aar <mmrhaq@gmail.com>"]
