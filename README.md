@@ -32,6 +32,6 @@ Create a FastAPI application with necessary dependencies.
 Create a .env file in project root directory, copy the connection string provided in neon.tech dashboard (after unmasking), and paste in .env file like so.
 	~~~
 	DEBUG = True
-	DATABASE_URL = postgresql://todos_owner:BxroAE39fQgY@ep-old-bar-a1rynmsu-	pooler.ap-southeast-1.aws.neon.tech/todo?sslmode=require
+	DATABASE_URL = postgresql://todos_owner:BxroAE39fQgY@ep-old-bar-a1rynmsu-pooler.ap-southeast-1.aws.neon.tech/todo?sslmode=require
 	~~~
 	***Note:** This URL won't work when you clone. I intentionally changed it. Make sure to replace it with your own*
