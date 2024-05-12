@@ -25,7 +25,7 @@ app: FastAPI = FastAPI(
     lifespan=lifespan, title="dailyDo Todo App", version='1.0.0')
 
 
-app.include_router(router=user.router)
+app.include_router(router=user.user_router)
 
 
 @app.get('/')
@@ -77,10 +77,16 @@ async def get_single_todo(id: int,
                           current_user: Annotated[User, Depends(get_current_user)],
                           session: Annotated[Session, Depends(get_session)]
                           ):
-    todo = session.exec(select(Todo).where(
-        Todo.id == id and Todo.user_id == current_user.id)).first()
-    if todo:
-        return todo
+    # todo = session.exec(select(Todo).where(
+    #     Todo.user_id == current_user.id and Todo.id == id)).first()
+    
+    user_todos = session.exec(select(Todo).where(
+        Todo.user_id == current_user.id
+    ))
+    matched_todo = next((todo for todo in user_todos if todo.id == id), None)
+
+    if matched_todo:
+        return matched_todo
     else:
         raise HTTPException(status_code=404, detail="No Task found")
 
@@ -91,14 +97,20 @@ async def edit_todo(id: int,
                     current_user: Annotated[User, Depends(get_current_user)], 
                     session: Annotated[Session, Depends(get_session)]
                     ):
-    existing_todo = session.exec(select(Todo).where(Todo.id == id and Todo.user_id == get_current_user.id)).first()
-    if existing_todo:
-        existing_todo.content = todo.content
-        existing_todo.is_completed = todo.is_completed
-        session.add(existing_todo)
+    
+    user_todos = session.exec(select(Todo).where(
+        Todo.user_id == current_user.id
+    ))
+    existing_matched_todo = next((todo for todo in user_todos if todo.id == id), None)
+    
+    # existing_todo = session.exec(select(Todo).where(Todo.id == id and Todo.user_id == current_user.id)).first()
+    if existing_matched_todo:
+        existing_matched_todo.content = todo.content
+        existing_matched_todo.is_completed = todo.is_completed
+        session.add(existing_matched_todo)
         session.commit()
-        session.refresh(existing_todo)
-        return existing_todo
+        session.refresh(existing_matched_todo)
+        return existing_matched_todo
     else:
         raise HTTPException(status_code=404, detail="No task found")
 

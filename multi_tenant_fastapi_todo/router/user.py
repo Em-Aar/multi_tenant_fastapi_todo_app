@@ -12,27 +12,27 @@ from jose import jwt, JWTError
 from pydantic import BaseModel
 
 
-router = APIRouter(
+user_router = APIRouter(
     prefix="/user",
     tags=["user"],
     responses={404: {"description": "Not found"}},
 )
 
 # route for user root
-@router.get("/")
+@user_router.get("/")
 def user_root():
     return {"message": "Welcome to dailyDo todo app user page. Please register or login to continue"}
 
 
 # route for user registration
-@router.post('/register')
+@user_router.post('/register')
 async def create_user(
     new_user: Annotated[OAuth2PasswordRequestForm, Depends()], 
     session: Annotated[Session, Depends(get_session)]
     ): # Depends() without parameter indicates that the argument itself is a dependency that FastAPI knows how to handle.
 
     db_user = get_user_from_db(new_user.username, session)
-    print(db_user)
+    # print(db_user)
     if db_user:
         raise HTTPException(status_code=409, detail=f""" "Whoops! {new_user.username} is already taken. Did you mean to sign in?""")
     user = User(email = new_user.username, password = hash_password(new_user.password))
@@ -42,7 +42,7 @@ async def create_user(
     return {"message": f"{user.email} successfully registered"}
 
 
-@router.get('/me', response_model= User)
+@user_router.get('/me', response_model= User)
 async def me(current_user: Annotated[User, Depends(get_current_user)]):
         print(f""" from me route {current_user}""")
         return current_user

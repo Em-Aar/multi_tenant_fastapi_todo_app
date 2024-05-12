@@ -38,7 +38,7 @@ We can pass it in a dependency with 'Depends()'
 
 '''
 
-pwd_cntxt = CryptContext(schemes=["bcrypt"])
+pwd_cntxt = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # function to generate hashpassword
 
